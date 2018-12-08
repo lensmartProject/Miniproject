@@ -5,16 +5,18 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.servlet.http.HttpServletResponse;
 
 import com.shoppingcart.servlet.RegistrationDetailServlet;
 
 public class UserDAOImpl implements IUserDAO {
+	static Connection connection;
+	
 	
 	public  String userVerify(UserDetailsPojo detailsPojo) {
 	
 	try{
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-	Connection	connection= DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","orcl11g");
+		getConnection();
 		PreparedStatement statement=connection.prepareStatement("insert into LensmartRegistration values(?,?,?,?,?,?,?)");
 		
 		statement.setString(1,detailsPojo.getFullName());
@@ -28,12 +30,10 @@ public class UserDAOImpl implements IUserDAO {
 		statement.executeUpdate();
 		
 		System.out.println("inserted successfully");
+		
 		statement.close();
 	
 		}catch(SQLException e){
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			
 			e.printStackTrace();
 		}
 
@@ -41,8 +41,17 @@ public class UserDAOImpl implements IUserDAO {
 		}
 
 	public static Connection getConnection() {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			connection= DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","orcl11g");
+			
+		}catch(SQLException e){
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return connection;
 	}
 	
 	}

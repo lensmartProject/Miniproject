@@ -14,9 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.capgemini.lensmart.UserDAOImpl;
 
-/**
- * Servlet implementation class LoginDetailServlet
- */
+
 @WebServlet("/loginDetailServlet")
 public class LoginDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -34,8 +32,8 @@ public class LoginDetailServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 String username = request.getParameter("username");
-		    String password = request.getParameter("password");
+		String username = request.getParameter("userName");
+		    String password = request.getParameter("passWord");
 		    /*System.out.println(userName);
 		    System.out.println(passWord);*/
 
@@ -43,30 +41,23 @@ public class LoginDetailServlet extends HttpServlet {
 		    {
 		        Connection con = UserDAOImpl.getConnection();
 		        PreparedStatement statement = con.prepareStatement("select username, password from LensmartRegistration where username =? and password=?");
-		        statement.setString(1, "vijay");
-		        statement.setString(2, "vijayyy");
+		        statement.setString(1, username);
+		        statement.setString(2, password);
 		        ResultSet result = statement.executeQuery();
 		        while(result.next()){
-		    		if(result.getString("userName").equals("vijay") && result.getString("passWord").equals("vijayyy")){
-		    			return ;
-		    			
+		    		
+		    			response.sendRedirect("Home.jsp"); 
+		    			return;
 		    		}
-		    	}
+		    		response.sendRedirect("error.jsp"); 
+		    
 		    	}
 		    	catch(SQLException e){
 		    		e.printStackTrace();
 		    	}
 		    		return;
 		    	}
-		        /*if(result.next()){
-		            response.sendRedirect("Home.jsp");
-		        }else{
-		            System.out.println("username and password are incorrect");
-		        }*/
-		    /*catch(Exception e){
-		        System.out.println("DB related Error");
-		        e.printStackTrace();
-		    }  */ 
+		       
 	}
 
 

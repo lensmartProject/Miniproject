@@ -47,7 +47,8 @@ public class RegistrationDetailServlet extends HttpServlet {
 		UserDAOImpl u=new UserDAOImpl();
 		u.userVerify(new UserDetailsPojo(fullName,userName,password,confirmPassword,mobileNum,emailId,address));
 		
-	
+		response.sendRedirect("Home.jsp"); 
+		
 	}
 
 	

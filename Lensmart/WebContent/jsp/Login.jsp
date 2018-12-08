@@ -11,18 +11,16 @@
 </head>
 <body>
 <body>
- <form action="LoginDetailServlet" method="post">
+ <form action="/Lensmart/loginDetailServlet" method="post">
   <div class="login-card">
     <h1>Log-in</h1><br>
  
     <input type="text" name="userName" placeholder="Username " >
-    <input type="password" name="passWord" placeholder="Password">
+    <input type="text" name="passWord" placeholder="Password">
     <input type="submit" name="login" class="login login-submit" value="login">
-
+<a href="Registration.jsp" >&nbsp &nbsp &nbsp  Don't have an account? Sign Up</a>
   </form>
-  <div class="login-help">
-    <a href="#">Register</a>  <a href="#">Forgot Password</a>
-  </div>
+  
 </div>
 
 
